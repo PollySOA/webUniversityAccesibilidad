@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital University - Diseño Semántico</title>
+  <!-- Carga de la fuente Montserrat desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="header-left">
+      <label for="menu-toggle" class="icono-menu">
+        <!-- OPTIMIZACIÓN: width y height añadidos -->
+        <img src="public/iconos/menu.png" alt="Menú" width="30" height="30">
+      </label>
+      <div class="header-logo">
+        <!-- OPTIMIZACIÓN: width y height añadidos -->
+        <img src="public/iconos/logoPolly.png" alt="Logo Digital University" width="50" height="50">
+      </div>
+    </div>
+    <input type="checkbox" id="menu-toggle" class="hidden">
+
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#pages">Pages</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Reproductor de audio nativo HTML5 -->
+    <audio class="header-audio" controls loop>
+      <source src="public/audios/audioAudacityPolly.mp3" type="audio/mpeg">
+      Tu navegador no soporta el elemento de audio.
+    </audio>
+  </header>
+
+  <!--
+    HERO: sección principal de bienvenida.
+  -->
+  <section class="hero" id="home">
+    <div class="contenedor">
+      <h1>We Are Leading Digital University</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.</p>
+
+      <!-- Formulario de registro rápido: nombre, email y teléfono -->
+      <form action="/register" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone" required>
+        <button type="submit">Register Now</button>
+      </form>
+
+      <!--
+        Bloque de redes sociales dentro del hero.
+      -->
+      <section class="social-media">
+        <h2 class="hidden">Redes sociales</h2>
+        <ul>
+          <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+          <li><a href="https://facebook.com" target="_blank"><img src="public/iconos/facebook.png" alt="Facebook"
+                width="30" height="30" loading="lazy"></a>
+          </li>
+          <li><a href="https://linkedin.com" target="_blank"><img src="public/iconos/linkedin.png" alt="LinkedIn"
+                width="30" height="30" loading="lazy"></a>
+          </li>
+          <li><a href="https://instagram.com" target="_blank"><img src="public/iconos/instagram.png" alt="Instagram"
+                width="30" height="30" loading="lazy"></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <!--
+    FEATURES: sección que explica las ventajas / características principales.
+    Usa article para cada "tarjeta" de contenido independiente.
+  -->
+  <section class="features seccion" id="about">
+    <span class="subtitulo">Most flexible one page</span>
+    <h2 class="texto-centrado">A DIGITAL UNIVERSITY HELPING THE WORLD TO GAIN SOME SUCCESS</h2>
+    <p class="texto-centrado">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+      ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+      nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.</p>
+
+    <a href="#" class="boton">LEARN MORE</a>
+    <div class="contenedor">
+      <!-- Cada article representa una característica destacada -->
+      <article>
+        <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+        <img src="public/iconos/drawing.png" alt="Icono de tecnología más reciente" width="60" height="60"
+          loading="lazy">
+        <h3>CARRER BUILDING</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </article>
+      <article>
+        <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+        <img src="public/iconos/cogwheel.png" alt="Configuracion del estudiante ícono" width="60" height="60"
+          loading="lazy">
+        <h3>STUDENT SETUP</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </article>
+      <article>
+        <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+        <img src="public/iconos/html-file.png" alt="Icono de tecnología más reciente" width="60" height="60"
+          loading="lazy">
+        <h3>LATEST TECHNOLOGY</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </article>
+    </div>
+  </section>
+
+  <!--
+    SKILLS: sección que muestra un texto descriptivo a la izquierda
+    y, a la derecha, una imagen + barras de progreso de habilidades.
+  -->
+  <section class="skills seccion" id="courses">
+    <div class="contenedor">
+      <div class="skills-text">
+        <span class="subtitulo">Most flexible one page</span>
+        <h2>A DIGITAL UNIVERSITY WITH PERFECT SET OF SKILLS FOR EVERYONE.</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.</p>
+      </div>
+
+      <div class="skills-right">
+        <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+        <img src="public/imagenes/feature.jpg" alt="Estadísticas y progreso de habilidades estudiantiles" width="600"
+          height="600" loading="lazy">
+        <div class="skills-content">
+          <h3>SKILLS PROGRESS</h3>
+          <!-- Lista de habilidades con su porcentaje de progreso -->
+          <ul>
+            <li><strong>Coding:</strong> <progress value="75" max="100">75%</progress> <span>75%</span></li>
+            <li><strong>Accuracy:</strong> <progress value="95" max="100">95%</progress> <span>95%</span></li>
+            <li><strong>Planning:</strong> <progress value="87" max="100">87%</progress> <span>87%</span></li>
+          </ul>
+          <a href="#" class="boton">LEARN MORE</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--
+    GALLERY: sección de galería de la universidad.
+    Muestra un título, texto descriptivo, filtro de categorías y una imagen grande.
+  -->
+  <section class="gallery seccion" id="pages">
+    <div class="contenedor-gallery">
+      <div class="gallery-left">
+        <span class="subtitulo">Latest design of our company</span>
+        <h2>OUR UNIVERSITY GALLERY</h2>
+        <svg class="gallery-svg" width="100%" height="120" viewBox="0 0 400 120" preserveAspectRatio="xMinYMin meet">
+          <defs>
+            <linearGradient id="gradienteVerde" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#8dc63f;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <rect x="10%" y="10%" width="80%" height="70%" stroke="none" fill="url(#gradienteVerde)" />
+          <text x="50%" y="60%" font-family="Montserrat, Arial, sans-serif" font-size="2.2em" font-weight="700"
+            fill="#333" text-anchor="middle" dominant-baseline="middle">Polly</text>
+          Sorry, your browser does not support inline SVG.
+        </svg>
+      </div>
+      <div>
+        <p>Curabitur mollis bibendum turpis. Duis suscipit vitae dis sed suscipit. Vestibulum auctor nunc vitae risus
+          eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. Nam porttitor justo sed mi finibus, vel
+          tristique metus faucibus.</p>
+        <p>Curabitur mollis bibendum turpis. Duis suscipit vitae dis sed suscipit. Vestibulum auctor nunc vitae risus
+          eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus.</p>
+      </div>
+    </div>
+
+    <!-- Navegación de categorías de la galería (no cambia de página, solo es ilustrativo) -->
+    <nav>
+      <ul>
+        <li><a href="#header">All</a></li>
+        <li><a href="#header">Events</a></li>
+        <li><a href="#header">Labs</a></li>
+        <li><a href="#header">Sports</a></li>
+        <li><a href="#header">Competitions</a></li>
+      </ul>
+    </nav>
+
+    <div class="gallery-imagen">
+      <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+      <img src="public/imagenes/galery.png" alt="Galería de imágenes del campus universitario" width="900" height="600"
+        loading="lazy">
+    </div>
+
+    <!-- 
+      OUR GALLERY - VIDEO SECTION
+      Sección añadida para mostrar vídeos (local y YouTube) siguiendo la estructura de la galería.
+    -->
+    <div class="gallery-videos">
+      <div class="gallery-videos__grid">
+        <article class="gallery-videos__item">
+          <h3 class="gallery-videos__title">Campus Life</h3>
+          <!-- OPTIMIZACIÓN: width, height y preload="metadata" añadidos -->
+          <video class="gallery-videos__video" controls poster="public/imagenes/galery.png" width="640" height="360"
+            preload="metadata">
+            <source src="public/videos/video_ejercicio.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </article>
+        <article class="gallery-videos__item">
+          <h3 class="gallery-videos__title">University Tour</h3>
+          <div class="gallery-videos__iframe-container">
+            <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+            <iframe class="gallery-videos__iframe" src="https://www.youtube.com/embed/wa_KOiGwXlQ?si=kYPuoCL6JJRKqZ6_"
+              title="YouTube video player" width="640" height="360" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!--
+    TESTIMONIALS: bloque de testimonio breve en el centro de la página.
+    Se usa blockquote para indicar que es una cita.
+  -->
+  <section class="testimonials seccion" id="blog">
+    <h2 class="hidden">Testimonios</h2>
+    <blockquote>
+      <p>
+        "<span class="texto-verde">EDUCATION</span> IS ALLOWING YOURSELF TO MAKE MISTAKES
+        ART IS KNOWING WHICH ONES YOU KEEP"
+      </p>
+      <footer><span class="texto-verde">Alice Johnson</span></footer>
+    </blockquote>
+  </section>
+
+  <!--
+    COURSE: sección destacada para promocionar un curso concreto.
+    Se compone de texto a la izquierda e imagen a la derecha.
+  -->
+  <section class="course" id="courses-highlight">
+    <div class="contenedor">
+      <div class="course-content">
+        <span class="subtitulo-blanco">Most flexible one page</span>
+        <h2>MACHINE LEARNING DIGITAL LATEST COURSE 2020</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur.</p>
+        <a href="#" class="boton boton-blanco">LAUNCH COURSE</a>
+      </div>
+      <div class="course-image">
+        <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+        <img src="public/imagenes/image.png" alt="Estudiante sosteniendo libros de texto en el campus" width="600"
+          height="600" loading="lazy">
+      </div>
+    </div>
+    <!-- Flechas decorativas para simulación de carrusel de cursos -->
+    <div class="course-navigation">
+      <button class="course-arrow">&lt;</button>
+      <button class="course-arrow">&gt;</button>
+    </div>
+  </section>
+
+  <!--
+    PRICING: sección que muestra tres planes de precios.
+    Cada plan es un article, lo que ayuda a separar el contenido.
+  -->
+  <section class="pricing seccion">
+    <span class="subtitulo">Most flexible one page</span>
+    <h2 class="texto-centrado">Very Affordable Pricing For All Courses</h2>
+    <p class="texto-centrado">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+      incididunt ut labore et dolore
+      magna aliqua.</p>
+
+    <div class="contenedor">
+      <!-- Plan de precios "Startup" -->
+      <article>
+        <h3>Startup</h3>
+        <div><strong>19 <abbr title="United States Dollar">USD</abbr></strong> <span>/ month</span></div>
+        <ul>
+          <li>Full Courses</li>
+          <li>Email Accounts</li>
+          <li>Community Access</li>
+          <li>8 free forks every months</li>
+        </ul>
+        <a href="#header" class="boton">Learn More</a>
+      </article>
+
+      <!-- Plan de precios "Standard" (destacado visualmente en CSS) -->
+      <article>
+        <h3>STANDARD</h3>
+        <div><strong>56 <abbr title="United States Dollar">USD</abbr></strong> <span>/ month</span></div>
+        <ul>
+          <li>Full Courses</li>
+          <li>Email Accounts</li>
+          <li>Community Access</li>
+          <li>8 free forks every months</li>
+        </ul>
+        <a href="#header" class="boton">Learn More</a>
+      </article>
+
+      <!-- Plan de precios "Premium" -->
+      <article>
+        <h3>Premium</h3>
+        <div><strong>89 <abbr title="United States Dollar">USD</abbr></strong> <span>/ month</span></div>
+        <ul>
+          <li>Full Courses</li>
+          <li>Email Accounts</li>
+          <li>Community Access</li>
+          <li>8 free forks every months</li>
+        </ul>
+        <a href="#header" class="boton">Learn More</a>
+      </article>
+    </div>
+  </section>
+
+  <!--
+    TESTIMONIAL-FEATURED: testimonio destacado a pantalla casi completa.
+    Incluye un gran texto, nombre/cargo y enlaces a redes.
+  -->
+  <section class="testimonial-featured">
+    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere nisi est, sed ullamcorper nibh volutpat
+      at.
+      In rutrum, metus ut posuere gravida, tellus lacus faucibus lectus, sed cursus eros ligula non odio. Suspendisse
+      volutpat sagittis sapien. Curabitur quis malesuada ipsum.</h2>
+
+    <blockquote>
+      <span class="texto-verde">Elisabeth Taylor</span>
+      <span>Amazon</span>
+    </blockquote>
+
+    <nav>
+      <ul>
+        <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+        <li><a href="https://facebook.com" target="_blank"><img src="public/iconos/facebook.png" alt="Facebook"
+              width="30" height="30" loading="lazy"></a>
+        </li>
+        <li><a href="https://linkedin.com" target="_blank"><img src="public/iconos/linkedin.png" alt="LinkedIn"
+              width="30" height="30" loading="lazy"></a>
+        </li>
+        <li><a href="https://instagram.com" target="_blank"><img src="public/iconos/instagram.png" alt="Instagram"
+              width="30" height="30" loading="lazy"></a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+
+  <!--
+    FOOTER: pie de página con información de contacto y un mapa.
+    Usa address para datos de dirección y contacto.
+  -->
+  <footer id="contact">
+    <section>
+      <div>
+        <span class="texto-verde">Lorem Ipsum dolos sit amet conecttues</span>
+        <h2>Digital University</h2>
+
+        <address>
+          <p>123 Education Street</p>
+          <p>Digital City, DC 12345</p>
+          <p>United States</p>
+          <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+          <p>Email: <a href="mailto:info@digitaluniversity.edu">info@digitaluniversity.edu</a></p>
+        </address>
+
+        <nav>
+          <ul>
+            <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+            <li><a href="https://facebook.com" target="_blank"><img src="public/iconos/facebook.png" alt="Facebook"
+                  width="30" height="30" loading="lazy"></a>
+            </li>
+            <li><a href="https://linkedin.com" target="_blank"><img src="public/iconos/linkedin.png" alt="LinkedIn"
+                  width="30" height="30" loading="lazy"></a>
+            </li>
+            <li><a href="https://instagram.com" target="_blank"><img src="public/iconos/instagram.png" alt="Instagram"
+                  width="30" height="30" loading="lazy"></a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div>
+        <!-- OPTIMIZACIÓN: width, height y loading="lazy" añadidos -->
+        <img src="public/imagenes/mapa.png" alt="Mapa de la ubicación de la universidad" width="500" height="400"
+          loading="lazy">
+      </div>
+    </section>
+
+  </footer>
+</body>
+
+</html>

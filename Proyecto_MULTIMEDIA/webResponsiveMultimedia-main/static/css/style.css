@@ -1,0 +1,1560 @@
+:root {
+  --color-principal: #24B273;
+  --color-principal-hover: #1e9a62;
+  --color-fondo-claro: #F2F2F2;
+  --color-texto-oscuro: #333333;
+  --color-texto-suave: #666666;
+  --color-negro: #000000;
+  --color-blanco: #FFFFFF;
+  --color-borde: #CCCCCC;
+  --fuente-principal: 'Montserrat', sans-serif;
+  --ancho-maximo: 1200px;
+  --ancho-texto: 800px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--fuente-principal);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-texto-oscuro);
+}
+h1, h2 {
+  font-weight: 100;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+h3 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hidden {
+  display: none;
+}
+/* Nota: .texto-centrado eliminada - se usa text-align en selectores de contexto */
+
+/* Pinta el texto con el color verde principal */
+.texto-verde {
+  color: var(--color-principal);
+}
+
+/* Subtítulo oscuro, pequeño y en mayúsculas visuales */
+.subtitulo {
+  color: var(--color-negro);               /* Texto oscuro para fondos claros */
+  font-size: 12px;                         /* Tamaño pequeño tipo etiqueta */
+  font-weight: 700;                        /* Negrita para llamar la atención */
+  text-transform: lowercase;               /* Se escribe en minúsculas pero el diseño general es tipo etiqueta */
+  letter-spacing: 1px;                     /* Más espacio entre letras para un look moderno */
+  margin-bottom: 10px;                     /* Separación respecto al elemento siguiente */
+  text-align: center;                      /* Centrado por defecto */
+}
+
+/* Versión en blanco del subtítulo, pensada para fondos oscuros o de color */
+.subtitulo-blanco {
+  color: var(--color-blanco);              /* Texto blanco para buen contraste */
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Nota: .seccion eliminada - el padding se integra directamente en cada sección */
+
+/* ==========================
+   BOTONES REUTILIZABLES
+   Estilos base para botones de llamada a la acción
+========================== */
+.boton {
+  display: inline-block;                   /* Se comporta como texto pero admite ancho/alto */
+  padding: 15px 40px;                      /* Relleno cómodo alrededor del texto */
+  background-color: var(--color-principal);/* Fondo verde principal */
+  color: var(--color-blanco);              /* Texto blanco para máximo contraste */
+  text-decoration: none;                   /* Quita subrayado si es un enlace */
+  border-radius: 50px;                     /* Bordes redondeados tipo "píldora" */
+  font-weight: 700;                        /* Texto en negrita para destacar */
+  text-transform: uppercase;               /* Texto del botón siempre en mayúsculas */
+  transition: all 0.3s;                    /* Transición suave para cambios visuales */
+  border: 2px solid var(--color-principal);/* Borde del mismo color que el fondo */
+  position: relative;                      /* Necesario para posicionar el pseudo-elemento interno */
+  overflow: hidden;                        /* Oculta lo que se salga del borde del botón */
+
+  /* Capa animada que se desliza por detrás del texto en hover */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100%;                            /* Empieza fuera del botón, por arriba */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-principal-hover); /* Color ligeramente más oscuro para el efecto */
+    transition: top 0.3s ease;             /* La capa baja suavemente al hacer hover */
+    z-index: -1;                           /* Se queda por detrás del texto del botón */
+  }
+
+  /* Cuando pasamos el ratón, la capa baja y llena el botón */
+  &:hover::before {
+    top: 0;
+  }
+
+  /* Efecto de "botón flotante" al hacer hover */
+  &:hover {
+    transform: translateY(-2px);           /* Se eleva ligeramente hacia arriba */
+    box-shadow: 0 5px 15px rgba(36, 178, 115, 0.3); /* Sombra suave debajo del botón */
+  }
+}
+
+/* Botón secundario en negro, usado en fondos de color o secciones destacadas
+   (reutiliza el mismo comportamiento visual que .boton, no repetimos explicación) */
+.boton-blanco {
+  background-color: var(--color-negro);
+  color: var(--color-blanco);
+  border: 2px solid var(--color-negro);
+  padding: 10px 30px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  display: inline-block;
+
+  &::before {
+    background-color: #333;                /* Capa de hover en gris oscuro */
+  }
+
+  &:hover {
+    background-color: #333;                /* Fondo se oscurece un poco al pasar el ratón */
+    border-color: var(--color-negro);
+    color: var(--color-blanco);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ==========================
+   CABECERA Y NAVEGACIÓN PRINCIPAL
+   Incluye logo, menú y botón de menú móvil
+========================== */
+header {
+  background-color: transparent;           /* El header es transparente sobre la imagen del hero */
+  padding: 20px 40px;                      /* Espacio interno alrededor del contenido del header */
+  position: absolute;                      /* Se coloca por encima del contenido inicial */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;                           /* Asegura que el header quede por encima del resto */
+  display: flex;                           /* Coloca logo y menú en línea */
+  justify-content: space-between;          /* Separa logo y menú a extremos opuestos */
+  align-items: center;                     /* Centra verticalmente el contenido */
+
+  .header-left {
+    display: flex;                         /* Agrupa logo y menú en una misma fila */
+    align-items: center;                   /* Alinea verticalmente */
+    gap: 100px;                            /* Espacio entre logo y menú (en escritorio) */
+    flex: 1;                               /* Ocupa espacio disponible */
+  }
+
+  .icono-menu {
+    cursor: pointer;                       /* Mano al pasar el ratón: se puede hacer clic */
+    display: none;                         /* Oculto en escritorio, se muestra en móvil */
+    z-index: 2100;                         /* Por encima del menú móvil */
+
+    img {
+      width: 30px;                         /* Tamaño del icono hamburguesa */
+      height: 30px;
+      filter: brightness(0) invert(1);     /* Lo convierte en blanco sobre fondo oscuro */
+    }
+  }
+
+  .header-logo {
+    display: flex;                         /* Por si el logo tiene varios elementos */
+    align-items: center;
+    z-index: 2100;                         /* Que no quede tapado por otros elementos */
+
+    img {
+      width: 50px;                         /* Tamaño del logo principal */
+      height: 50px;
+      filter: brightness(0) invert(1);     /* Lo muestra en blanco sobre el fondo del hero */
+    }
+  }
+
+  nav {
+    flex: 1;                               /* Ocupa el espacio restante frente al logo */
+    display: flex;
+    justify-content: center;               /* Centra la lista de enlaces en el header */
+
+    ul {
+      display: flex;                       /* Menú en línea (horizontal) */
+      align-items: center;
+      list-style: none;                    /* Quitamos los puntos de la lista */
+      gap: 30px;                           /* Separación entre enlaces */
+
+      li {
+        position: relative;                /* Permite posicionar el triangulito decorativo del enlace */
+
+        a {
+          text-decoration: none;           /* Sin subrayado */
+          color: var(--color-blanco);      /* Enlaces blancos sobre el hero */
+          font-weight: 600;                /* Un poco más gruesos para que destaquen */
+          text-transform: uppercase;       /* Mayúsculas para aspecto de menú principal */
+          font-size: 15px;
+          transition: color 0.3s;          /* Cambio de color suave en hover */
+          display: block;
+          padding: 5px 0;                  /* Pequeño espacio clicable arriba y abajo */
+
+          &:hover {
+            color: var(--color-principal); /* El texto se vuelve verde al pasar el ratón */
+          }
+
+          /* Pequeño triángulo blanco que aparece sobre el enlace en hover */
+          &::after {
+            content: '';
+            position: absolute;
+            top: -10px;                    /* Se coloca justo encima del texto */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid var(--color-blanco);
+            opacity: 0;                    /* Oculto por defecto */
+            transition: opacity 0.3s;      /* Aparece/desaparece suavemente */
+          }
+
+          &:hover::after {
+            opacity: 1;                    /* Hace visible el triángulo al hacer hover */
+          }
+        }
+      }
+    }
+  }
+
+  /* Reproductor de audio nativo en el header */
+  .header-audio {
+    width: 200px;
+    height: 30px;
+  }
+}
+/* ==========================
+   SECCIÓN HERO (cabecera principal)
+   Imagen de fondo, título, formulario y redes sociales
+========================== */
+.hero {
+  background-image: url('../../public/imagenes/header.png'); /* Imagen de fondo del hero */
+  background-size: cover;                                    /* Cubre todo el ancho/alto disponible */
+  background-position: center;                               /* Centra la imagen */
+  background-repeat: no-repeat;                              /* Evita que se repita la imagen */
+  padding: 150px 20px 80px;                                  /* Espacio interno para que el contenido respire */
+  text-align: center;                                        /* Texto centrado por defecto */
+  min-height: 100vh;                                         /* Ocupa al menos el alto completo de la ventana */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;                                   /* Centra verticalmente el contenido */
+  position: relative;                                        /* Necesario para posicionar redes sociales */
+
+  .contenedor {
+    max-width: var(--ancho-maximo);                          /* No dejamos que el texto sea demasiado ancho */
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 42px;                                         /* Título grande principal */
+    margin-bottom: 20px;
+    font-weight: 900;                                        /* Muy grueso para destacar */
+    color: var(--color-blanco);                              /* Blanco sobre la imagen */
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 18px;                                         /* Texto descriptivo algo más pequeño */
+    margin-bottom: 40px;
+    max-width: 600px;                                        /* Para que no sea una línea demasiado larga */
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--color-blanco);
+  }
+
+  /* Formulario de búsqueda / captura de datos en el hero */
+  form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.95);              
+    border-radius: 50px;                                      
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);               
+    
+    input {
+      flex: 1;                                               /* El input ocupa todo el espacio disponible */
+      padding: 12px 18px;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      min-width: 0;                                          /* Evita problemas de reducción de ancho */
+      font-family: var(--fuente-principal);
+
+      &:focus {
+        outline: none;                                       /* Quitamos el borde azul por defecto */
+      }
+    }
+
+    button {
+      padding: 12px 28px;
+      background-color: var(--color-principal);
+      color: var(--color-blanco);
+      border: none;
+      border-radius: 50px;                                   /* Mismo estilo redondeado que el contenedor */
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background-color 0.3s;                     /* Cambio de color suave al hacer hover */
+      white-space: nowrap;                                   /* Evita que el texto del botón se parta en 2 líneas */
+      font-size: 13px;
+
+      &:hover {
+        background-color: var(--color-principal-hover);      /* Un poco más oscuro al pasar el ratón */
+      }
+    }
+  }
+}
+
+/* ==========================
+   ASIDE SOCIAL MEDIA (redes sociales)
+   Columna de iconos al lado derecho del hero
+   CAMBIO: de .hero .social-media a .social-media (ahora es <aside>)
+========================== */
+.social-media {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);                             /* Centra el bloque verticalmente */
+
+  ul {
+    display: flex;
+    flex-direction: column;                                /* Iconos apilados en columna */
+    gap: 15px;
+    list-style: none;
+
+    li {
+      img {
+        width: 30px;
+        height: 30px;
+        transition: transform 0.3s;                        /* Efecto suave de zoom */
+        filter: brightness(0) invert(1);                   /* Convierte el icono a blanco */
+
+        &:hover {
+          transform: scale(1.2);                          /* Iconos crecen un poco al hacer hover */
+        }
+      }
+    }
+  }
+}
+
+/* ==========================
+   SECCIÓN FEATURES (características principales)
+   Tarjetas con icono, título y descripción
+========================== */
+.features {
+  padding: 80px 20px;
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+
+  h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: 200;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  > p {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    color: var(--color-texto-suave);
+    line-height: 1.8;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    align-items: stretch;
+    max-width: var(--ancho-maximo);
+    margin: 0 auto 50px;
+
+    article {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      background-color: var(--color-blanco);
+      border-radius: 10px;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+
+      &:hover {
+        border: 2px solid var(--color-borde);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+      }
+         
+      img {
+        width: 60px;
+        height: 60px;
+         
+        opacity: 0.7;
+      }
+
+      h3 {
+        margin-bottom: 20px;
+        color: var(--color-texto-oscuro);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      p {
+        color: var(--color-texto-suave);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+    }
+  }
+
+  > .boton {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    text-align: center;
+    padding: 14px 45px;
+    border-radius: 50px;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+}
+
+/* ==========================
+   SECCIÓN SKILLS (habilidades y progreso)
+   Mitad imagen, mitad texto y barras de progreso
+========================== */
+.skills {
+  padding: 80px 0;
+
+  .contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    max-width: 100%;
+    margin: 0;
+    min-height: 600px;
+  }
+
+  .skills-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 60px 80px;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 1;
+
+    .subtitulo {
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: 200;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    p {
+      max-width: 100%;
+      margin: 0 0 40px 0;
+      color: var(--color-texto-suave);
+      line-height: 1.8;
+      text-align: left;
+    }
+  }
+
+  .skills-right {
+    display: contents;                                         /* Deja que los hijos ocupen las celdas del grid */
+
+    img {
+      width: 100%;
+      height: 100%;
+      min-height: 600px;
+      object-fit: cover;
+      object-position: center;
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+
+    .skills-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 80px 60px 80px;
+      grid-column: 2;
+      grid-row: 2;
+
+      h3 {
+        margin-bottom: 30px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      ul {
+        list-style: none;
+        margin-bottom: 40px;
+
+        li {
+          margin-bottom: 25px;
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          strong {
+            min-width: 100px;
+            font-weight: 400;
+            font-size: 14px;
+          }
+
+          /* Barra de progreso que muestra el nivel de habilidad */
+          progress {
+            flex: 1;
+            height: 12px;
+            accent-color: var(--color-principal);
+            border-radius: 6px;
+          }
+
+          progress::-webkit-progress-bar {
+            background-color: var(--color-fondo-claro);
+            border-radius: 6px;
+          }
+
+          progress::-webkit-progress-value {
+            background-color: var(--color-principal);
+            border-radius: 6px;
+          }
+
+          progress::-moz-progress-bar {
+            background-color: var(--color-principal);
+            border-radius: 6px;
+          }
+
+          span {
+            min-width: 45px;
+            text-align: right;
+            font-size: 14px;
+            color: var(--color-texto-suave);
+            font-weight: 400;
+          }
+        }
+      }
+
+      .boton {
+        padding: 12px 35px;
+        font-size: 12px;
+        width: fit-content;
+      }
+    }
+  }
+}
+
+/* ==========================
+   SECCIÓN GALLERY (galería de imágenes)
+   Texto a la izquierda, explicación a la derecha y gran imagen
+========================== */
+.gallery {
+  padding: 80px 20px;
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+
+  .contenedor-gallery {
+    display: grid;                                           /* Dos columnas: texto e info */
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 30px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: flex-start;
+
+    .gallery-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+
+      .subtitulo {
+        margin-bottom: 0;
+        text-align: left;
+      }
+    }
+
+    h2 {
+      font-size: 32px;
+      text-align: left;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      p {
+        text-align: left;
+        color: var(--color-texto-suave);
+        line-height: 1.8;
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+  }
+
+  /* Navegación de filtros de la galería (categorías) */
+  nav {
+    margin-top: 50px;                                        /* Más espacio entre imagen y nav */
+    margin-bottom: 30px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+
+    ul {
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      list-style: none;
+
+      li {
+        a {
+          text-decoration: none;
+          color: var(--color-texto-oscuro);                  /* Gris oscuro por defecto */
+          font-weight: 600;
+          padding: 10px 20px;
+          border-radius: 5px;
+          transition: all 0.3s;
+
+          &:hover,
+          &:active {
+            color: var(--color-principal);                   /* Verde al hacer hover */
+          }
+        }
+      }
+    }
+  }
+
+  .gallery-imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: var(--ancho-maximo);
+    margin: 0 auto 40px;
+
+    img {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(1.05);                              /* Pequeño zoom para dar dinamismo */
+      }
+    }
+  }
+}
+
+/* ==========================
+   GALLERY VIDEOS (BEM & GRID)
+   Estilos para la sección de vídeos dentro de la galería
+========================== */
+.gallery-videos {
+  max-width: 700px;                                          /* Reducido para que quepan lado a lado */
+  margin: 0 auto;
+  padding: 0 20px;
+
+  > h2 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);         /* Dos columnas lado a lado */
+    gap: 20px;                                     /* Reducido para dar más espacio */
+  }
+
+  &__item {
+    background-color: var(--color-fondo-claro);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+    overflow: hidden;
+    padding: 15px;                                 /* Reducido de 25px a 15px */
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  &__title {
+    font-size: 14px;                                 /* Reducido de 18px a 14px */
+    font-weight: 700;
+    margin-bottom: 15px;                             /* Reducido de 20px a 15px */
+    color: var(--color-texto-oscuro);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__video {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    background-color: var(--color-negro);
+  }
+
+  &__iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: var(--color-negro);
+  }
+
+  &__iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+/* ==========================
+   SECCIÓN TESTIMONIOS
+   Cita centrada y testimonio destacado a pantalla completa
+========================== */
+.testimonials {
+  text-align: center;
+  padding: 100px 20px;                                       /* Espacio generoso alrededor del bloque */
+
+  blockquote {
+    max-width: 900px;
+    margin: 0 auto;
+
+    p {
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--color-texto-oscuro);
+      margin-bottom: 30px;
+    }
+
+    footer {
+      font-size: 16px;
+      font-weight: 600;                                      /* Nombre o cargo del autor de la cita */
+    }
+  }
+}
+
+.testimonial-featured {
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 20px 100px;
+  background-image: url('../../public/imagenes/testimony.png'); /* Imagen de fondo del testimonio destacado */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;                                         /* Ocupa el alto de la pantalla */
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);                          /* Capa oscura encima de la imagen */
+    z-index: -1;                                             /* Queda por detrás del texto */
+  }
+
+  h2 {
+    font-size: 18px;
+    color: var(--color-blanco);
+    font-weight: 100;
+    line-height: 1.8;
+    margin-bottom: 0;
+    max-width: 800px;
+    align-self: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    text-transform: lowercase;                               /* Estilo tipo frase natural */
+  }
+
+  blockquote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: 30px;
+
+    /* CAMBIO: ahora cite es el primer elemento del blockquote */
+    cite {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--color-principal);
+      font-style: normal;
+    }
+
+    span {
+      color: #999;
+      font-size: 14px;
+    }
+  }
+
+  nav {
+    ul {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      list-style: none;
+      margin-top: 0;
+
+      li {
+        img {
+          width: 30px;
+          height: 30px;                                      /* Iconos de medios o redes */
+        }
+      }
+    }
+  }
+}
+
+/* ==========================
+   SECCIÓN COURSE (curso destacado)
+   Fondo verde con texto a un lado e imagen al otro
+========================== */
+.course {
+  background-color: var(--color-principal);
+  color: var(--color-blanco);
+  padding: 0;
+  position: relative;
+
+  .contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;                          /* Mitad texto, mitad imagen */
+    gap: 0;
+    max-width: 100%;
+    margin: 0;
+    min-height: 600px;
+  }
+
+  .course-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    text-align: left;
+
+    .subtitulo-blanco {
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 25px;
+      font-weight: 200;
+      text-align: left;
+      line-height: 1.3;
+    }
+
+    p {
+      text-align: left;
+      margin-bottom: 35px;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .boton-blanco {
+      align-self: flex-start;                                /* Botón alineado al inicio del texto */
+    }
+  }
+
+  .course-image {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      min-height: 600px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .course-navigation {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    gap: 15px;
+
+    .course-arrow {
+      background-color: transparent;
+      color: var(--color-blanco);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: var(--color-blanco);
+      }
+    }
+  }
+}
+
+/* ==========================
+   SECCIÓN PRICING (planes de precios)
+   Tres tarjetas comparando distintos planes
+========================== */
+.pricing {
+  padding: 80px 20px;
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+
+  h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  > p {
+    max-width: var(--ancho-texto);
+    margin: 0 auto 50px auto;
+    color: var(--color-texto-suave);
+    text-align: center;
+  }
+
+  .contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;                       /* Tres columnas para los planes */
+    gap: 30px;
+    margin-bottom: 40px;
+
+    article {
+      border: 2px solid transparent;
+      border-radius: 10px;
+      background: #fff;
+      padding: 40px 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 24px rgba(36, 178, 115, 0.10);
+        border-color: var(--color-principal);
+      }
+
+      h3 {
+        margin-bottom: 20px;
+        color: var(--color-texto-oscuro);
+      }
+
+      > div {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 30px;
+
+        strong {
+          display: block;
+          font-size: 48px;                                   /* Precio en grande */
+          color: var(--color-principal);
+          font-weight: 700;
+          margin-bottom: 5px;
+        }
+
+        span {
+          font-size: 14px;
+          color: #999;                                       /* Texto auxiliar del precio (por mes, etc.) */
+        }
+      }
+
+      ul {
+        list-style: none;
+        margin-bottom: 30px;
+        text-align: left;
+
+        li {
+          padding: 10px 0;
+          color: var(--color-texto-suave);
+        }
+      }
+
+      .boton {
+        margin-top: auto;                                    /* Empuja el botón al final de la tarjeta */
+      }
+
+      /* Estilo especial de botón para los planes de los lados */
+      &:first-child,
+      &:last-child {
+        .boton {
+          background-color: transparent;
+          color: var(--color-negro);
+          border-color: var(--color-negro);
+
+          &::before {
+            background-color: var(--color-negro);
+          }
+
+          &:hover {
+            color: var(--color-blanco);
+          }
+        }
+      }
+
+      /* Plan central destacado con botón verde principal */
+      &:nth-child(2) {
+        .boton {
+          background-color: var(--color-principal);
+          color: var(--color-blanco);
+          border-color: var(--color-principal);
+
+          &::before {
+            background-color: var(--color-principal-hover);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ==========================
+   FOOTER (pie de página)
+   Información de contacto, imagen y redes sociales
+========================== */
+footer {
+  background-color: var(--color-blanco);
+  color: var(--color-negro);
+  padding: 60px 20px 20px 20px;
+  border-top: 1px solid var(--color-fondo-claro);
+
+  section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;                           /* Dos columnas: texto e imagen */
+    gap: 40px;
+    max-width: var(--ancho-maximo);
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+    align-items: center;
+
+    > div:first-child {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+
+      > span {
+        text-align: left;
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: lowercase;                             /* Etiqueta pequeña sobre el título */
+      }
+    }
+
+    > div:last-child {
+      display: flex;
+      justify-content: center;
+      align-items: center;                                     /* Contenedor para la imagen ilustrativa */
+    }
+  }
+
+  h2 {
+    color: var(--color-negro);
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  address {
+    font-style: normal;                                       /* Evita cursiva por defecto del address */
+    line-height: 1.8;
+    text-align: left;
+    color: var(--color-negro);
+
+    p {
+      margin: 5px 0;
+    }
+
+    a {
+      color: var(--color-negro);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-principal);                        /* Enlaces de contacto se ponen verdes en hover */
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;                                      /* Bordes redondeados para la imagen del footer */
+  }
+
+  nav {
+    width: 100%;
+
+    ul {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      justify-content: flex-start;
+
+      li {
+        img {
+          width: 30px;
+          height: 30px;                                       /* Iconos de redes sociales */
+        }
+      }
+    }
+  }
+
+  small {
+    display: block;
+    text-align: center;
+    color: var(--color-texto-suave);
+    border-top: 1px solid var(--color-fondo-claro);
+    padding-top: 20px;                                        /* Línea de créditos/derechos reservados */
+  }
+}
+
+/* ==========================
+   VERSIÓN MÓVIL (hasta 900px de ancho)
+   Ajustes responsivos para que todo se vea bien en pantallas pequeñas
+========================== */
+@media (width <= 900px) {
+  /* Header fijo con fondo semitransparente y blur en móvil */
+  header {
+    padding: 15px 20px;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+
+    .header-left {
+      gap: 20px;
+    }
+
+    .icono-menu {
+      display: block !important;
+    }
+
+    /* Menú lateral deslizante activado por el icono hamburguesa */
+    nav {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: var(--color-principal);
+      padding-top: 80px;
+      z-index: 2050;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+
+      ul {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 24px;
+        padding: 20px;
+
+        li {
+          a {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 12px 0;
+            text-align: center;
+            display: block;
+
+            &::after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Cuando el checkbox del menú está activo, mostramos el panel lateral */
+  #menu-toggle:checked ~ nav {
+    left: 0;
+  }
+
+  /* Capa oscura que cubre la pantalla cuando el menú está abierto */
+  #menu-toggle:checked ~ .header-left::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2040;
+    cursor: pointer;
+  }
+
+  /* Ajustes del hero para que se vea bien en pantallas pequeñas */
+  .hero {
+    padding: 120px 20px 40px;
+    min-height: 80vh;
+
+    .contenedor {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      max-width: 90%;
+    }
+
+    form {
+      flex-direction: column;
+      width: 90%;
+      max-width: 400px;
+      gap: 8px;
+      padding: 15px;
+      border-radius: 25px;
+      margin: 0 auto 20px auto;
+
+      input {
+        padding: 10px 15px;
+        border-radius: 20px;
+        width: 100%;
+      }
+
+      button {
+        padding: 10px 25px;
+        width: 100%;
+      }
+    }
+  }
+
+  /* CAMBIO: Social media ahora como aside en móvil */
+  .social-media {
+    position: static;
+    margin: 20px auto 0;
+
+    ul {
+      flex-direction: row;
+      gap: 20px;
+      justify-content: center;
+    }
+  }
+
+  /* Las tarjetas de features pasan a una sola columna */
+  .features {
+    .contenedor {
+      grid-template-columns: 1fr;
+      gap: 20px;
+
+      article {
+        padding: 30px 20px;
+      }
+    }
+  }
+
+  /* Sección de skills apilada (imagen encima, texto debajo) */
+  .skills {
+    .contenedor {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skills-text {
+      padding: 40px 20px;
+      text-align: center;
+      order: 1;
+
+      .subtitulo,
+      h2,
+      p {
+        text-align: center;
+      }
+    }
+
+    .skills-right {
+      order: 2;
+      display: flex;
+      flex-direction: column;
+      min-height: auto;
+
+      img {
+        height: 250px;
+        min-height: 250px;
+        max-height: 250px;
+      }
+
+      .skills-content {
+        padding: 30px 20px;
+        border-radius: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  /* Galería en una sola columna y navegación centrada */
+  .gallery {
+    .contenedor-gallery {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 0 20px;
+
+      .gallery-left {
+        .subtitulo {
+          text-align: center;
+        }
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      > div {
+        p {
+          text-align: center;
+        }
+      }
+    }
+
+    nav {
+      ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        li {
+          a {
+            font-size: 14px;
+            padding: 8px 15px;
+          }
+        }
+      }
+    }
+
+    .gallery-imagen {
+      margin-bottom: 40px;
+    }
+  }
+
+  /* Videos responsivos en móvil */
+  .gallery-videos {
+    padding: 0 15px;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    &__item {
+      padding: 15px;
+    }
+
+    &__title {
+      font-size: 16px;
+    }
+  }
+
+  /* Testimonios con menos padding y texto un poco más pequeño */
+  .testimonials {
+    padding: 60px 20px;
+
+    blockquote {
+      p {
+        font-size: 22px;
+      }
+    }
+  }
+
+  /* Testimonio destacado con altura y texto ajustados */
+  .testimonial-featured {
+    min-height: 70vh;
+    padding: 60px 20px 80px;
+
+    h2 {
+      font-size: 16px;
+    }
+  }
+
+  /* Curso destacado ahora apilado: imagen arriba, texto abajo */
+  .course {
+    .contenedor {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .course-content {
+      padding: 40px 20px;
+      text-align: center;
+      order: 2;
+
+      h2,
+      p {
+        text-align: center;
+      }
+
+      .boton-blanco {
+        align-self: center;
+      }
+    }
+
+    .course-image {
+      min-height: 300px;
+      order: 1;
+
+      img {
+        min-height: 300px;
+      }
+    }
+
+    .course-navigation {
+      bottom: 15px;
+      left: 15px;
+
+      .course-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  /* Planes de precios uno debajo de otro */
+  .pricing {
+    h2 {
+      font-size: 28px;
+    }
+
+    .contenedor {
+      grid-template-columns: 1fr;
+      gap: 20px;
+
+      article {
+        padding: 30px 20px;
+      }
+    }
+  }
+
+  /* Footer a una sola columna, todo centrado */
+  footer {
+    padding: 40px 20px 20px 20px;
+
+    section {
+      grid-template-columns: 1fr;
+      gap: 30px;
+
+      > div:first-child {
+        align-items: center;
+        text-align: center;
+
+        > span {
+          text-align: center;
+        }
+      }
+
+      > div:last-child {
+        order: -1;
+      }
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    address {
+      text-align: center;
+    }
+
+    nav {
+      ul {
+        justify-content: center;
+      }
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
